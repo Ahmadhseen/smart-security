@@ -1,0 +1,56 @@
+{% extends 'basic.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-lg rounded-3">
+                <div class="card-header bg-warning bg-gradient py-3 rounded-top-3">
+                    <h4 class="mb-0 text-dark"><i class="fas fa-pen-square me-2"></i>Edit Antenna Details</h4>
+                </div>
+                <div class="card-body p-4 bg-light">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="row g-3">
+                            <div class="col-md-6 mb-3">
+                                <label for="deviceName" class="form-label fw-bold small text-muted">Device Name</label>
+                                {{form.name_device}}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="modelDevice" class="form-label fw-bold small text-muted">Model Device</label>
+                                {{form.model_device}}
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="ipAddress" class="form-label fw-bold small text-muted">IP Address</label>
+                                {{form.ip_address}}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="frequency" class="form-label fw-bold small text-muted">Frequency</label>
+                                {{form.frequency}}
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="encreyptionType" class="form-label fw-bold small text-muted">Encryption Type</label>
+                                {{form.encreption_type}}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="password" class="form-label fw-bold small text-muted">Password</label>
+                                {{form.password}}
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-2 border-top pt-4 mt-2">
+                            <a href="{% url 'dashboard' %}" class="btn btn-light border px-4">Cancel</a>
+                            <button type="submit" value="Edit Antenna" class="btn btn-success px-4 shadow-sm">
+                                <i class="fas fa-check me-1"></i> Update Antenna
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

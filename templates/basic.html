@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Smart Security System</title>
+    
+    <!-- Bootstrap 5 CSS (Latest Stable Version) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- FontAwesome Icons (Essential for the icons used in other pages) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Inter for a modern clean look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa; /* Light background to make cards pop */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            background-color: #ffffff !important;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: #495057 !important;
+            transition: all 0.2s ease;
+            padding: 0.5rem 1rem !important;
+            border-radius: 0.5rem;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #0d6efd !important;
+            background-color: rgba(13, 110, 253, 0.05);
+        }
+
+        /* Main Content wrapper to push footer down */
+        main {
+            flex: 1;
+        }
+
+        /* Footer Styling */
+        footer {
+            margin-top: auto;
+            background-color: #fff;
+            border-top: 1px solid #e9ecef;
+        }
+    </style>
+  </head>
+  <body>
+
+    <!-- Modern Responsive Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top mb-4">
+      <div class="container">
+        <!-- Brand / Logo -->
+        <a class="navbar-brand text-primary" href="{% url 'dashboard' %}">
+            <i class="fas fa-shield-alt me-2"></i>Smart Security
+        </a>
+        
+        <!-- Mobile Toggle Button -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Nav Links -->
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center gap-1">
+            
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'dashboard' %}">
+                    <i class="fas fa-chart-pie me-1 small"></i> Dashboard
+                </a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'view_towers' %}">
+                    <i class="fas fa-broadcast-tower me-1 small"></i> View Towers
+                </a>
+            </li>
+
+            <!-- Dropdown for Add Actions -->
+            <li class="nav-item dropdown ms-lg-2">
+                <a class="nav-link dropdown-toggle btn btn-primary text-white px-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #0d6efd !important; color: white !important;">
+                    <i class="fas fa-plus me-1"></i> Add New
+                </a>
+                <ul class="dropdown-menu border-0 shadow-lg animate slideIn dropdown-menu-end">
+                    <li>
+                        <a class="dropdown-item py-2" href="{% url 'add' %}">
+                            <i class="fas fa-satellite-dish me-2 text-primary"></i>Add Antenna
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item py-2" href="{% url 'add_tower' %}">
+                            <i class="fas fa-tower-cell me-2 text-success"></i>Add Tower
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main>
+        <!-- Flash Messages (Optional: If you use Django messages) -->
+        {% if messages %}
+            <div class="container mb-3">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% block content %}
+            <!-- Content will be injected here -->
+        {% endblock content %}
+    </main>
+    
+
+    <!-- Footer -->
+    <footer class="py-4 text-center text-muted small mt-5">
+        <div class="container">
+            <p class="mb-0">&copy; 2024 Smart Security Systems. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+    // ننتظر حتى يتم تحميل الصفحة بالكامل
+    document.addEventListener('DOMContentLoaded', function () {
+        
+        // نحدد جميع العناصر التي تحمل الكلاس .alert
+        var alerts = document.querySelectorAll('.alert');
+
+        alerts.forEach(function (alert) {
+            // نستخدم دالة setTimeout لتشغيل الكود بعد وقت محدد
+            setTimeout(function () {
+                
+                // التأكد من أن مكتبة Bootstrap محملة
+                if (typeof bootstrap !== 'undefined') {
+                    // نستخدم دالة Bootstrap لإغلاق التنبيه بشكل ناعم
+                    var bsAlert = new bootstrap.Alert(alert);
+                    bsAlert.close();
+                } else {
+                    // حل بديل في حال لم تكن مكتبة JS محملة: إخفاء العنصر فقط
+                    alert.style.display = 'none';
+                }
+
+            }, 3000); // 3000 ميلي ثانية تعني 3 ثواني
+        });
+    });
+</script>
+
+    <!-- Bootstrap Bundle JS (Includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
