@@ -1,0 +1,12 @@
+{% extends 'register.html' %}
+{% load django_bootstrap5 %}
+
+
+{% block content %}
+<div class="container">
+    <a href="{% url 'sign_in' %}" class="btn btn-primary">sign in</a>
+    <a href="{% url 'log_in' %}" class="btn btn-primary">log in</a>
+</div>
+    
+{% endblock content %}
+    

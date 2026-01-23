@@ -1,10 +1,14 @@
 from django.shortcuts import render, redirect
 from django.db.models import Count
-from network_management_app.forms import AntennaForm, EditAntennaForm, TowerForm
-from .models import Antenna, Tower
+from network_management_app.forms import AntennaForm, TowerForm, UsersForm, LogInForm
+from .models import Antenna, Tower, Users
 from django.contrib import messages
 
 # Create your views here.
+
+def home(request):
+    return render(request, 'network_management_app/home.html')
+
 def dashboard(request):
     towers = Tower.objects.all()
     if towers_id:= request.GET.get('tower_filter'):
@@ -36,13 +40,13 @@ def add(request):
 def edit(request, pk):
     antenna = Antenna.objects.get(pk=pk)
     if request.POST:
-        form = EditAntennaForm(request.POST, instance=antenna)
+        form = AntennaForm(request.POST, instance=antenna)
         if form.is_valid():
             form.save()
             messages.success(request, f'Antenna {antenna.name_device} updated successfully.')
         return redirect('dashboard')
     else:
-        form = EditAntennaForm(instance=antenna)
+        form = AntennaForm(instance=antenna)
 
     return render(request, 'network_management_app/edit.html', {'antenna':antenna, 'form': form})
 
@@ -85,3 +89,28 @@ def edit_tower(request, pk):
     else:
         form = TowerForm(instance=tower)
     return render(request, 'network_management_app/edit_tower.html', {'form': form, 'tower': tower})
+
+def sign_in(request):
+    if request.POST:
+        form = UsersForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Sign in successful.')
+            return redirect('log_in')
+    else:
+        form = UsersForm()    
+    return render(request, 'network_management_app/sign_in.html', {'form': form})
+
+def log_in(request):
+    if request.POST:
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        try:
+            user = Users.objects.get(username=username, password=password)
+            messages.success(request, f'Welcome back, {user.username}!')
+            return redirect('dashboard')
+        except Users.DoesNotExist:
+            messages.error(request, 'Invalid username or password. Please try again.')
+    
+    form = LogInForm()
+    return render(request, 'network_management_app/log_in.html', {'form': form})

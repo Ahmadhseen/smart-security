@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 
     # my apps
     'network_management_app',
+    "django_bootstrap5",
 ]
 
 MIDDLEWARE = [
