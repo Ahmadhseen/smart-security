@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 from django.contrib.messages import constants as messages
+from django.utils.translation import gettext_lazy as _
+import os
 
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',   # تحويل 'error' إلى 'danger' ليناسب Bootstrap
@@ -53,6 +55,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -120,6 +123,19 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+USE_L10N = True
+
+# تعريف اللغات المدعومة
+LANGUAGES = [
+    ('ar', _('Arabic')),
+    ('en', _('English')),
+]
+
+# مسار مجلد الترجمة (حيث سيتم تخزين ملفات الترجمة)
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
+]
 
 
 # Static files (CSS, JavaScript, Images)

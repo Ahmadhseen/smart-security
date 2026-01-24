@@ -1,0 +1,289 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-24 23:00+0300\n"
+"PO-Revision-Date: 2026-01-24 23:30+0300\n"
+"Last-Translator: \n"
+"Language-Team: Arabic\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: .\network_management_app\templates\network_management_app\add.html:10
+msgid "Add New Antenna"
+msgstr "إضافة هوائي جديد"
+
+#: .\network_management_app\templates\network_management_app\add.html:17
+msgid "Device Information"
+msgstr "معلومات الجهاز"
+
+#: .\network_management_app\templates\network_management_app\add.html:20
+#: .\network_management_app\templates\network_management_app\dashboard.html:49
+#: .\network_management_app\templates\network_management_app\edit.html:18
+msgid "Device Name"
+msgstr "اسم الجهاز"
+
+#: .\network_management_app\templates\network_management_app\add.html:27
+#: .\network_management_app\templates\network_management_app\edit.html:22
+msgid "Model Device"
+msgstr "نوع الجهاز"
+
+#: .\network_management_app\templates\network_management_app\add.html:36
+msgid "Network Configuration"
+msgstr "إعدادات الشبكة"
+
+#: .\network_management_app\templates\network_management_app\add.html:39
+#: .\network_management_app\templates\network_management_app\dashboard.html:51
+#: .\network_management_app\templates\network_management_app\edit.html:27
+msgid "IP Address"
+msgstr "عنوان IP"
+
+#: .\network_management_app\templates\network_management_app\add.html:46
+#: .\network_management_app\templates\network_management_app\dashboard.html:54
+#: .\network_management_app\templates\network_management_app\edit.html:31
+msgid "Frequency"
+msgstr "التردد"
+
+#: .\network_management_app\templates\network_management_app\add.html:57
+#: .\network_management_app\templates\network_management_app\edit.html:36
+msgid "Encryption Type"
+msgstr "نوع التشفير"
+
+#: .\network_management_app\templates\network_management_app\add.html:61
+#: .\network_management_app\templates\network_management_app\dashboard.html:53
+#: .\network_management_app\templates\network_management_app\edit.html:40
+#: .\network_management_app\templates\network_management_app\log_in.html:25
+#: .\network_management_app\templates\network_management_app\sign_in.html:38
+msgid "Password"
+msgstr "كلمة السر"
+
+#: .\network_management_app\templates\network_management_app\add.html:71
+msgid "Assigned Tower"
+msgstr "البرج التابع له"
+
+#: .\network_management_app\templates\network_management_app\add.html:76
+#: .\network_management_app\templates\network_management_app\add_tower.html:39
+#: .\network_management_app\templates\network_management_app\edit.html:46
+#: .\network_management_app\templates\network_management_app\edit_tower.html:35
+#: .\network_management_app\templates\network_management_app\log_in.html:36
+#: .\network_management_app\templates\network_management_app\sign_in.html:50
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: .\network_management_app\templates\network_management_app\add.html:78
+#: .\templates\basic.html:128
+msgid "Add Antenna"
+msgstr "إضافة الهوائي"
+
+#: .\network_management_app\templates\network_management_app\add_tower.html:10
+msgid "New Tower Registration"
+msgstr "تسجيل برج جديد"
+
+#: .\network_management_app\templates\network_management_app\add_tower.html:16
+#: .\network_management_app\templates\network_management_app\edit_tower.html:19
+msgid "Tower Name"
+msgstr "اسم البرج"
+
+#: .\network_management_app\templates\network_management_app\add_tower.html:18
+msgid "Give the tower a unique identifier."
+msgstr "أعطِ البرج تعريفاً خاصاً"
+
+#: .\network_management_app\templates\network_management_app\add_tower.html:23
+#: .\network_management_app\templates\network_management_app\edit_tower.html:23
+#: .\network_management_app\templates\network_management_app\view_towers.html:23
+msgid "Location"
+msgstr "الموقع"
+
+#: .\network_management_app\templates\network_management_app\add_tower.html:27
+msgid "Height (m)"
+msgstr "الارتفاع (م)"
+
+#: .\network_management_app\templates\network_management_app\add_tower.html:37
+msgid "Create Tower"
+msgstr "إنشاء برج"
+
+#: .\network_management_app\templates\network_management_app\dashboard.html:10
+#: .\templates\basic.html:110
+msgid "Dashboard"
+msgstr "لوحة العرض"
+
+#: .\network_management_app\templates\network_management_app\dashboard.html:11
+msgid "Overview of all registered antennas"
+msgstr "نظرة عامة على كل الهوائيات المسجلة"
+
+#: .\network_management_app\templates\network_management_app\dashboard.html:14
+msgid "New Antenna"
+msgstr "هوائي جديد"
+
+#: .\network_management_app\templates\network_management_app\dashboard.html:23
+msgid "Filter By:"
+msgstr "تصفية بواسطة:"
+
+#: .\network_management_app\templates\network_management_app\dashboard.html:27
+msgid "-- All Towers --"
+msgstr "-- كل الأبراج --"
+
+#: .\network_management_app\templates\network_management_app\dashboard.html:36
+msgid "Apply"
+msgstr "تطبيق"
+
+#: .\network_management_app\templates\network_management_app\dashboard.html:37
+msgid "Reset"
+msgstr "إعادة ضبط"
+
+#: .\network_management_app\templates\network_management_app\dashboard.html:50
+msgid "Model"
+msgstr "النموذج"
+
+#: .\network_management_app\templates\network_management_app\dashboard.html:52
+msgid "Encryption"
+msgstr "التشفير"
+
+#: .\network_management_app\templates\network_management_app\dashboard.html:55
+msgid "Tower"
+msgstr "البرج"
+
+#: .\network_management_app\templates\network_management_app\dashboard.html:56
+msgid "ID"
+msgstr "المعرف"
+
+#: .\network_management_app\templates\network_management_app\dashboard.html:57
+#: .\network_management_app\templates\network_management_app\view_towers.html:27
+msgid "Actions"
+msgstr "الإجراءات"
+
+#: .\network_management_app\templates\network_management_app\dashboard.html:77
+msgid "Unassigned"
+msgstr "غير مسند لبرج"
+
+#: .\network_management_app\templates\network_management_app\dashboard.html:97
+msgid "No antennas found matching your criteria."
+msgstr "لم يتم العثور على هوائيات تطابق المعايير الخاصة بك"
+
+#: .\network_management_app\templates\network_management_app\edit.html:10
+msgid "Edit Antenna Details"
+msgstr "تعديل تفاصيل الهوائي"
+
+#: .\network_management_app\templates\network_management_app\edit.html:48
+msgid "Update Antenna"
+msgstr "تحديث الهوائي"
+
+#: .\network_management_app\templates\network_management_app\edit_tower.html:12
+msgid "Edit Tower"
+msgstr "تعديل البرج"
+
+#: .\network_management_app\templates\network_management_app\edit_tower.html:27
+#: .\network_management_app\templates\network_management_app\view_towers.html:24
+msgid "Height"
+msgstr "الارتفاع"
+
+#: .\network_management_app\templates\network_management_app\edit_tower.html:30
+msgid "meters"
+msgstr "أمتار"
+
+#: .\network_management_app\templates\network_management_app\edit_tower.html:37
+msgid "Save Changes"
+msgstr "حفظ التغييرات"
+
+#: .\network_management_app\templates\network_management_app\home.html:7
+msgid "sign in"
+msgstr "إنشاء حساب"
+
+#: .\network_management_app\templates\network_management_app\home.html:8
+msgid "log in"
+msgstr "تسجيل الدخول"
+
+#: .\network_management_app\templates\network_management_app\log_in.html:13
+#: .\network_management_app\templates\network_management_app\log_in.html:34
+msgid "Log In"
+msgstr "تسجيل الدخول"
+
+#: .\network_management_app\templates\network_management_app\log_in.html:20
+msgid "User Name"
+msgstr "اسم المستخدم"
+
+#: .\network_management_app\templates\network_management_app\sign_in.html:13
+#: .\network_management_app\templates\network_management_app\sign_in.html:48
+msgid "Sign In"
+msgstr "إنشاء حساب"
+
+#: .\network_management_app\templates\network_management_app\sign_in.html:20
+msgid "First Name"
+msgstr "الاسم الأول"
+
+#: .\network_management_app\templates\network_management_app\sign_in.html:25
+msgid "Last Name"
+msgstr "الاسم الأخير"
+
+#: .\network_management_app\templates\network_management_app\sign_in.html:32
+msgid "Username"
+msgstr "اسم المستخدم"
+
+#: .\network_management_app\templates\network_management_app\view_towers.html:7
+msgid "Towers Management"
+msgstr "إدارة الأبراج"
+
+#: .\network_management_app\templates\network_management_app\view_towers.html:9
+msgid "Add New Tower"
+msgstr "إضافة برج جديد"
+
+#: .\network_management_app\templates\network_management_app\view_towers.html:15
+msgid "All Towers List"
+msgstr "قائمة جميع الأبراج"
+
+#: .\network_management_app\templates\network_management_app\view_towers.html:22
+msgid "Name Tower"
+msgstr "اسم البرج"
+
+#: .\network_management_app\templates\network_management_app\view_towers.html:26
+msgid "Antenna"
+msgstr "الهوائي"
+
+#: .\network_management_app\templates\network_management_app\view_towers.html:40
+msgid "Active"
+msgstr "نشط"
+
+#: .\network_management_app\templates\network_management_app\view_towers.html:44
+msgid "No Antennas"
+msgstr "لا يوجد هوائيات"
+
+#: .\network_management_app\templates\network_management_app\view_towers.html:50
+msgid "Edit"
+msgstr "تعديل"
+
+#: .\network_management_app\templates\network_management_app\view_towers.html:61
+msgid "No towers found."
+msgstr "لم يتم العثور على أبراج."
+
+#: .\project\settings.py:131
+msgid "Arabic"
+msgstr "عربي"
+
+#: .\project\settings.py:132
+msgid "English"
+msgstr "إنكليزي"
+
+#: .\templates\basic.html:116
+msgid "View Towers"
+msgstr "عرض الأبراج"
+
+#: .\templates\basic.html:123
+msgid "Add New"
+msgstr "إضافة جديد"
+
+#: .\templates\basic.html:134
+msgid "Add Tower"
+msgstr "إضافة برج"
+
+#: .\templates\basic.html:168 .\templates\register.html:124
+msgid "2024 Smart Security Systems. All rights reserved."
+msgstr "2024 أنظمة الحماية الذكية. جميع الحقوق محفوظة."

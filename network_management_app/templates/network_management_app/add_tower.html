@@ -1,4 +1,5 @@
 {% extends 'basic.html' %}
+{% load i18n %}
 
 {% block content %}
 <div class="container mt-5">
@@ -6,24 +7,24 @@
         <div class="col-md-6">
             <div class="card border-0 shadow-lg rounded-3">
                 <div class="card-header bg-success text-white py-3 rounded-top-3">
-                    <h4 class="mb-0"><i class="fas fa-plus-circle me-2"></i>New Tower Registration</h4>
+                    <h4 class="mb-0"><i class="fas fa-plus-circle me-2"></i>{% trans 'New Tower Registration' %}</h4>
                 </div>
                 <div class="card-body p-4 bg-light">
                     <form method="POST">
                         {% csrf_token %}
                         <div class="mb-4">
-                            <label for="name_tower" class="form-label fw-bold text-dark">Tower Name</label>
+                            <label for="name_tower" class="form-label fw-bold text-dark">{% trans 'Tower Name' %}</label>
                             {{ form.name_tower }}
-                            <div class="form-text">Give the tower a unique identifier.</div>
+                            <div class="form-text">{% trans 'Give the tower a unique identifier.' %}</div>
                         </div>
                         
                         <div class="row g-3 mb-4">
                             <div class="col-md-8">
-                                <label for="location" class="form-label fw-bold text-dark">Location</label>
+                                <label for="location" class="form-label fw-bold text-dark">{% trans 'Location' %}</label>
                                 {{ form.location }}
                             </div>
                             <div class="col-md-4">
-                                <label for="height" class="form-label fw-bold text-dark">Height (m)</label>
+                                <label for="height" class="form-label fw-bold text-dark">{% trans 'Height (m)' %}</label>
                                 <div class="input-group">
                                     {{ form.height }}
                                     <span class="input-group-text">m</span>
@@ -33,9 +34,9 @@
 
                         <div class="d-grid gap-2">
                             <button type="submit" value="Add Tower" class="btn btn-success py-2 fw-bold shadow-sm">
-                                Create Tower
+                                {% trans 'Create Tower' %}
                             </button>
-                            <a href="{% url 'view_towers' %}" class="btn btn-link text-decoration-none text-muted text-center">Cancel</a>
+                            <a href="{% url 'view_towers' %}" class="btn btn-link text-decoration-none text-muted text-center">{% trans 'Cancel' %}</a>
                         </div>
                     </form>
                 </div>

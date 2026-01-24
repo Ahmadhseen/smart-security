@@ -1,11 +1,11 @@
 {% extends 'register.html' %}
-{% load django_bootstrap5 %}
+{% load i18n %}
 
 
 {% block content %}
-<div class="container">
-    <a href="{% url 'sign_in' %}" class="btn btn-primary">sign in</a>
-    <a href="{% url 'log_in' %}" class="btn btn-primary">log in</a>
+<div class="d-grid gap-2 col-6 mx-auto">
+    <a href="{% url 'sign_in' %}" class="btn btn-secondary btn-lg my-2 shadow-lg p-3 mb-5  rounded">{% trans 'sign in' %}</a>
+    <a href="{% url 'log_in' %}" class="btn btn-outline-primary btn-lg my-2 shadow-lg p-3 mb-5  rounded">{% trans 'log in' %}</a>
 </div>
     
 {% endblock content %}

@@ -1,4 +1,5 @@
 {% extends 'basic.html' %}
+{% load i18n %}
 
 {% block content %}
 <div class="container mt-5">
@@ -6,24 +7,24 @@
         <div class="col-lg-8">
             <div class="card border-0 shadow-lg rounded-3">
                 <div class="card-header bg-primary text-white py-3 rounded-top-3">
-                    <h4 class="mb-0"><i class="fas fa-satellite-dish me-2"></i>Add New Antenna</h4>
+                    <h4 class="mb-0"><i class="fas fa-satellite-dish me-2"></i>{% trans 'Add New Antenna' %}</h4>
                 </div>
                 <div class="card-body p-4 bg-light">
                     <form method="post" class="needs-validation">
                         {% csrf_token %}
                         
                         <!-- Device Info Section -->
-                        <h6 class="text-primary mb-3 border-bottom pb-2">Device Information</h6>
+                        <h6 class="text-primary mb-3 border-bottom pb-2">{% trans 'Device Information' %}</h6>
                         <div class="row g-3 mb-3">
                             <div class="col-md-6">
-                                <label for="deviceName" class="form-label fw-bold small text-uppercase text-muted">Device Name</label>
+                                <label for="deviceName" class="form-label fw-bold small text-uppercase text-muted">{% trans 'Device Name' %}</label>
                                 <div class="input-group">
                                     <span class="input-group-text bg-white"><i class="fas fa-tag text-secondary"></i></span>
                                     {{ form.name_device }}
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="modelDevice" class="form-label fw-bold small text-uppercase text-muted">Model Device</label>
+                                <label for="modelDevice" class="form-label fw-bold small text-uppercase text-muted">{% trans 'Model Device' %}</label>
                                 <div class="input-group">
                                     <span class="input-group-text bg-white"><i class="fas fa-microchip text-secondary"></i></span>
                                     {{ form.model_device }}
@@ -32,17 +33,17 @@
                         </div>
 
                         <!-- Network Info Section -->
-                        <h6 class="text-primary mb-3 border-bottom pb-2 mt-4">Network Configuration</h6>
+                        <h6 class="text-primary mb-3 border-bottom pb-2 mt-4">{% trans 'Network Configuration' %}</h6>
                         <div class="row g-3 mb-3">
                             <div class="col-md-6">
-                                <label for="ipAddress" class="form-label fw-bold small text-uppercase text-muted">IP Address</label>
+                                <label for="ipAddress" class="form-label fw-bold small text-uppercase text-muted">{% trans 'IP Address' %}</label>
                                 <div class="input-group">
                                     <span class="input-group-text bg-white"><i class="fas fa-network-wired text-secondary"></i></span>
                                     {{ form.ip_address }}
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="frequency" class="form-label fw-bold small text-uppercase text-muted">Frequency</label>
+                                <label for="frequency" class="form-label fw-bold small text-uppercase text-muted">{% trans 'Frequency' %}</label>
                                 <div class="input-group">
                                     <span class="input-group-text bg-white"><i class="fas fa-wave-square text-secondary"></i></span>
                                     {{ form.frequency }}
@@ -53,11 +54,11 @@
                         <!-- Security Info Section -->
                         <div class="row g-3 mb-3">
                             <div class="col-md-6">
-                                <label for="encreyptionType" class="form-label fw-bold small text-uppercase text-muted">Encryption Type</label>
+                                <label for="encreyptionType" class="form-label fw-bold small text-uppercase text-muted">{% trans 'Encryption Type' %}</label>
                                 {{ form.encreption_type }}
                             </div>
                             <div class="col-md-6">
-                                <label for="password" class="form-label fw-bold small text-uppercase text-muted">Password</label>
+                                <label for="password" class="form-label fw-bold small text-uppercase text-muted">{% trans 'Password' %}</label>
                                 <div class="input-group">
                                     <span class="input-group-text bg-white"><i class="fas fa-lock text-secondary"></i></span>
                                     {{ form.password }}
@@ -67,14 +68,14 @@
 
                         <!-- Tower Selection -->
                         <div class="mb-4 mt-4">
-                            <label for="{{ form.tower.id_for_label }}" class="form-label fw-bold small text-uppercase text-muted">Assigned Tower</label>
+                            <label for="{{ form.tower.id_for_label }}" class="form-label fw-bold small text-uppercase text-muted">{% trans 'Assigned Tower' %}</label>
                             {{ form.tower }}
                         </div>
 
                         <div class="d-flex justify-content-end gap-2 border-top pt-3">
-                            <a href="{% url 'dashboard' %}" class="btn btn-light border px-4">Cancel</a>
+                            <a href="{% url 'dashboard' %}" class="btn btn-light border px-4">{% trans 'Cancel' %}</a>
                             <button type="submit" value="Add Antenna" class="btn btn-primary px-4 shadow-sm">
-                                <i class="fas fa-save me-1"></i> Add Antenna
+                                <i class="fas fa-save me-1"></i>{% trans 'Add Antenna' %}
                             </button>
                         </div>
                     </form>

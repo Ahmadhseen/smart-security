@@ -1,4 +1,5 @@
 {% extends 'basic.html' %}
+{% load i18n %}
 
 {% block content %}
 <div class="container-fluid px-4 mt-4">
@@ -6,11 +7,11 @@
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h1 class="h3 text-dark fw-bold mb-0">Dashboard</h1>
-            <p class="text-muted mb-0">Overview of all registered antennas</p>
+            <h1 class="h3 text-dark fw-bold mb-0">{% trans 'Dashboard' %}</h1>
+            <p class="text-muted mb-0">{% trans 'Overview of all registered antennas' %} </p>
         </div>
         <a href="{% url 'add' %}" class="btn btn-primary shadow-sm">
-            <i class="fas fa-plus me-2"></i>New Antenna
+            <i class="fas fa-plus me-2"></i>{% trans 'New Antenna' %}
         </a>
     </div>
 
@@ -19,11 +20,11 @@
         <div class="card-body py-3">
             <form method="GET" class="row g-3 align-items-center">
                 <div class="col-auto">
-                    <span class="fw-bold text-secondary"><i class="fas fa-filter me-1"></i> Filter By:</span>
+                    <span class="fw-bold text-secondary"><i class="fas fa-filter me-1"></i>{% trans 'Filter By:' %}</span>
                 </div>
                 <div class="col-md-4 col-lg-3">
                     <select name="tower_filter" id="tower_filter" class="form-select form-select-sm border-secondary-subtle">
-                        <option value="">-- All Towers --</option>
+                        <option value="">{% trans '-- All Towers --' %} </option>
                         {% for tower in towers %}
                             <option value="{{ tower.id }}" {% if request.GET.tower_filter == tower.id|stringformat:"i" %}selected{% endif %}>
                                 {{ tower.name_tower }}
@@ -32,8 +33,8 @@
                     </select>
                 </div>
                 <div class="col-auto">
-                    <button type="submit" class="btn btn-dark btn-sm px-3">Apply</button>
-                    <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary btn-sm px-3 ms-1">Reset</a>
+                    <button type="submit" class="btn btn-dark btn-sm px-3">{% trans 'Apply' %}</button>
+                    <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary btn-sm px-3 ms-1">{% trans 'Reset' %}</a>
                 </div>
             </form>
         </div>
@@ -45,15 +46,15 @@
             <table class="table table-hover align-middle mb-0">
                 <thead class="bg-light text-uppercase small fw-bold text-secondary">
                     <tr>
-                        <th class="ps-4 py-3">Device Name</th>
-                        <th class="py-3">Model</th>
-                        <th class="py-3">IP Address</th>
-                        <th class="py-3">Encryption</th>
-                        <th class="py-3">Password</th>
-                        <th class="py-3">Frequency</th>
-                        <th class="py-3">Tower</th>
-                        <th class="py-3">ID</th>
-                        <th class="text-end pe-4 py-3">Actions</th>
+                        <th class="ps-4 py-3">{% trans 'Device Name' %} </th>
+                        <th class="py-3">{% trans 'Model' %} </th>
+                        <th class="py-3">{% trans 'IP Address' %} </th>
+                        <th class="py-3">{% trans 'Encryption' %} </th>
+                        <th class="py-3">{% trans 'Password' %} </th>
+                        <th class="py-3">{% trans 'Frequency' %} </th>
+                        <th class="py-3">{% trans 'Tower' %}</th>
+                        <th class="py-3">{% trans 'ID' %}</th>
+                        <th class="text-end pe-4 py-3">{% trans 'Actions' %}</th>
                     </tr>
                 </thead>
                 <tbody class="border-top-0">
@@ -73,7 +74,7 @@
                                     <i class="fas fa-broadcast-tower text-warning me-1"></i> {{ antenna.tower }}
                                 </a>
                             {% else %}
-                                <span class="text-muted fst-italic">Unassigned</span>
+                                <span class="text-muted fst-italic">{% trans 'Unassigned' %} </span>
                             {% endif %}
                         </td>
                         <td class="text-muted small">#{{ antenna.id }}</td>
@@ -93,7 +94,7 @@
                         <td colspan="9" class="text-center py-5">
                             <div class="text-muted">
                                 <i class="fas fa-satellite-dish fa-3x mb-3 opacity-50"></i>
-                                <p class="mb-0">No antennas found matching your criteria.</p>
+                                <p class="mb-0">{% trans 'No antennas found matching your criteria.' %}</p>
                             </div>
                         </td>
                     </tr>
