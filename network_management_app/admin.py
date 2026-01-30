@@ -5,9 +5,9 @@ from .models import Antenna, Tower, Users
 admin.site.site_header = "smart security Admin"
 
 class AntennaAdmin(admin.ModelAdmin):
-    list_display = ('name_device', 'model_device', 'ip_address', 'encreption_type', 'frequency', 'tower')
+    list_display = ('name_device', 'model_device', 'ip_address', 'encryption', 'frequency', 'tower')
     search_fields = ('name_device', 'model_device', 'ip_address')
-    list_filter = ('encreption_type', 'frequency')
+    list_filter = ('encryption', 'frequency')
 
 admin.site.register(Antenna, AntennaAdmin)
 

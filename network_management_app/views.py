@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.db.models import Count
-from network_management_app.forms import AntennaForm, TowerForm, UsersForm, LogInForm
+from .forms import AntennaForm, TowerForm, UsersForm, LogInForm
 from .models import Antenna, Tower, Users
 from django.contrib import messages
-
+from django.http import JsonResponse
+from .ssh_services import get_antenna_live_data 
 # Create your views here.
 
 def home(request):
@@ -11,31 +12,54 @@ def home(request):
 
 def dashboard(request):
     towers = Tower.objects.all()
-    if towers_id:= request.GET.get('tower_filter'):
-        antennas = Antenna.objects.filter(tower__id=towers_id)
-
+    tower_id = request.GET.get('tower_filter')
+    if tower_id:
+        antennas = Antenna.objects.filter(tower__id=tower_id)
     else: 
         antennas = Antenna.objects.all()
-    context = {
-        'antennas': antennas,
-        'towers': towers
-    }
-    return render(request, 'network_management_app/dashboard.html', context)
+    return render(request, 'network_management_app/dashboard.html', {'antennas': antennas, 'towers': towers})
 
 
 def add(request):
-    if request.POST:
+    if request.method == 'POST':
         form = AntennaForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Antenna added successfully.')
+            # حفظ مبدئي للحصول على الكائن بدون تخزينه في قاعدة البيانات فوراً
+            antenna = form.save(commit=False)
+            
+            # جلب البيانات الحية باستخدام IP وكلمة السر المدخلين
+            live_data = get_antenna_live_data(antenna.ip_address, 'ubnt', antenna.password)
+            
+            if live_data.get('status') == 'Online':
+                # تعبئة الحقول تلقائياً من الصحن
+                antenna.name_device = live_data.get('device_name')
+                antenna.model_device = live_data.get('platform')
+                antenna.operation_mode = live_data.get('operation_mode')
+                antenna.signal = live_data.get('signal')
+                antenna.noise = live_data.get('noise')
+                antenna.ccq = live_data.get('ccq')
+                antenna.lan_speed = live_data.get('lan_speed')
+                antenna.number_of_clients = live_data.get('number_of_clients', 0)
+                antenna.uptime_hours = live_data.get('uptime_hours')
+                antenna.essid = live_data.get('essid')
+                antenna.frequency = live_data.get('frequency')
+                antenna.channel_width = live_data.get('channel_width')
+                antenna.distance = live_data.get('distance')
+                antenna.encryption = live_data.get('encryption')
+                antenna.psk = live_data.get('psk')
+                antenna.status = 'Online'
+                antenna.save()
+                messages.success(request, 'Antenna added and data fetched successfully.')
+            else:
+                # إذا فشل الاتصال، نحفظه كـ Offline أو نرفض الإضافة حسب رغبتك
+                antenna.status = 'Offline'
+                antenna.save()
+                messages.warning(request, 'Failed to fetch live data from the antenna.')
+            
             return redirect('dashboard')
     else:
         form = AntennaForm()
-    messages.info(request, 'Please fill out the form to add a new antenna.')
-    # إذا كنت تريد تمرير الأبراج يدوياً لاستخدامها في HTML مخصص:
-    towers = Tower.objects.all() 
-    return render(request, 'network_management_app/add.html', {'form': form, 'towers': towers})
+    return render(request, 'network_management_app/add.html', {'form': form})
 
 def edit(request, pk):
     antenna = Antenna.objects.get(pk=pk)
@@ -114,3 +138,12 @@ def log_in(request):
     
     form = LogInForm()
     return render(request, 'network_management_app/log_in.html', {'form': form})
+
+
+def antenna_status_api(request, pk):
+    try:
+        antenna = Antenna.objects.get(pk=pk)
+        data = get_antenna_live_data(antenna.ip_address, 'ubnt', antenna.password)
+        return JsonResponse(data)
+    except Antenna.DoesNotExist:
+        return JsonResponse({"status": "Error", "error": "Device not found"}, status=404)

@@ -39,7 +39,8 @@ def get_antenna_selected_info(ip, username, password):
 
         # 3. وضع التشغيل
         op_mode = extract('wlanOpmode', status_out)
-        mode_desc = "مرسل (Access Point)" if op_mode == "ap" else "مستقبل (Station)"
+        mode_desc = "Access Point" if op_mode in ["ap", "ap-ptp-ac", "ap-ptmp-mixed"] else "Station"
+        print(f"Operating Mode: {op_mode}")
 
         # تجميع المعلومات المطلوبة فقط
         results = {
@@ -66,7 +67,7 @@ def get_antenna_selected_info(ip, username, password):
         return {"error": str(e)}
 
 # الطباعة بشكل جميل
-info = get_antenna_selected_info('192.168.50.26', 'ubnt', 'smart2025')
+info = get_antenna_selected_info('192.168.40.15', 'ubnt', 'smartsecurity1234')
 
 if "error" not in info:
     print("\n" + "═"*45)

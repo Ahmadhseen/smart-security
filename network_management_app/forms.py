@@ -4,17 +4,13 @@ from .models import Antenna, Tower, Users
 class AntennaForm(forms.ModelForm):
     class Meta:
         model = Antenna
-        fields = '__all__'
+        fields = ['ip_address', 'password', 'tower'] 
         widgets = {
-            'name_device': forms.TextInput(attrs={'class': 'form-control'}),
-            'model_device': forms.TextInput(attrs={'class': 'form-control'}),
-            'ip_address': forms.TextInput(attrs={'class': 'form-control'}),
-            'encreption_type': forms.TextInput(attrs={'class': 'form-control'}),
+            'ip_address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '192.168.1.20'}),
             'password': forms.PasswordInput(attrs={'class': 'form-control'}),
-            'frequency': forms.NumberInput(attrs={'class': 'form-control'}),
             'tower': forms.Select(attrs={'class': 'form-control'}),
         }
-        # 'tower' هو اسم الحقل الذي يربط الهوائي بالبرج في الموديل
+        
 
 class TowerForm(forms.ModelForm):
     class Meta:
