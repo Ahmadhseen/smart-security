@@ -1,57 +1,89 @@
 {% extends 'register.html' %}
+{% load static %}
 {% load i18n %}
 
 
 
 {% block content %}
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card border-0 shadow-lg rounded-3">
-                <div class="card-header bg-primary text-white py-3 rounded-top-3">
-                    <h4 class="mb-0"><i class="fas fa-plus-circle me-2"></i>{% trans 'Sign In' %}</h4>
-                </div>
-                <div class="card-body p-4 bg-light">
+<div class="container py-5">
+    <div class="row justify-content-center align-items-center min-vh-100">
+        <div class="col-11 col-sm-9 col-md-7 col-lg-5 col-xl-4">
+            <!-- قسم الشعار والعنوان -->
+            <div class="text-center hero-section">
+                <img src="{% static 'images/icon copy.png' %}" alt="Logo" class="brand-logo mb-4">
+                <h1 class="h2 fw-bold text-dark mb-2">{% trans 'Smart Security' %}</h1>
+                <p class="text-muted small px-4">{% trans 'Manage your network devices efficiently and securely.' %}</p>
+            </div>
+            
+            <!-- بطاقة تسجيل الدخول -->
+            <div class="card login-card shadow-lg">
+                <div class="card-body p-4 p-md-5">
+
+                    <div class="text-center mb-4">
+                         <h4 class="fw-bold">{% trans 'Sign In' %}</h4>
+                         <p class="text-muted mb-0 small">{% trans 'Enter your credentials to continue' %}</p>
+                    </div>
+
                     <form method="POST">
                         {% csrf_token %}
-                        <div class="row g-3 mb-10">
-                            <div class="col-md-6">
-                            <label for="first_name" class="form-label fw-bold text-dark">{% trans 'First Name' %}</label>
-                            {{ form.first_name }}
-                            </div>
-                        
-                            <div class="col-md-6">
-                                <label for="last_name" class="form-label fw-bold text-dark">{% trans 'Last Name' %}</label>
-                                {{ form.last_name }}
-                            </div> 
-                        </div>       
 
-                        <div class="row g-3 mb-10">
-                            <div class="col-md-6">
-                            <label for="username" class="form-label fw-bold text-dark">{% trans 'Username' %}</label>
-                            {{ form.username }}
-                            </div>
-                        
-
-                            <div class="col-md-6">
-                                <label for="password" class="form-label fw-bold text-dark">{% trans 'Password' %} </label>
-                                
-                                    {{ form.password }}
-                                    
+                        <div class="mb-3">
+                            <label for="first_name" class="form-label fw-semibold small text-secondary">
+                                <i class="bi bi-emoji-smile"></i>{% trans ' First Name' %}
+                            </label>
+                            <div class="input-group">
+                                {{ form.first_name }}
                             </div>
                         </div>
-                </div>
 
+                        <div class="mb-3">
+                            <label for="last_name" class="form-label fw-semibold small text-secondary">
+                                <i class="bi bi-emoji-smile-fill"></i>{% trans ' Last Name' %}
+                            </label>
+                            <div class="input-group">
+                                {{ form.last_name }}
+                            </div>
+                        </div>     
+                               
+                        <div class="mb-3">
+                            <label for="username" class="form-label fw-semibold small text-secondary">
+                                <i class="fas fa-user me-1"></i>{% trans 'Username' %}
+                            </label>
+                            <div class="input-group">
+                                {{ form.username }}
+                            </div>
+                        </div>    
+                        
+                        <div class="mb-4">
+                            <label for="password" class="form-label fw-semibold small text-secondary">
+                                <i class="fas fa-lock me-1"></i>{% trans 'Password' %}
+                            </label>
+                            <div class="input-group">
+                                {{ form.password }}  
+                            </div>
+                        </div>
+
+                        <!-- أزرار التحكم -->
                         <div class="d-grid gap-2">
-                            <button type="submit" value="sign_in" class="btn btn-primary py-2 fw-bold shadow-sm">
+                            <button type="submit" value="sign_in" class="btn btn-custom-primary py-2 fw-bold">
                                {% trans 'Sign In' %} 
                             </button>
-                            <a href="{% url 'home' %}" class="btn btn-link text-decoration-none text-muted text-center">{% trans 'Cancel' %} </a>
+
+                            <a href="{% url 'home' %}" class="btn btn-light btn-sm text-muted rounded-pill">
+                                {% trans 'Cancel' %}
+                            </a>
                         </div>
                     </form>
+
                 </div>
             </div>
+
+            <!-- التذييل -->
+            <div class="text-center mt-4">
+                <p class="text-muted mb-0 small">&copy; 2025 Smart Security. All rights reserved.</p>
+            </div>
+
         </div>
     </div>
 </div>

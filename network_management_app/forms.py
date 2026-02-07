@@ -18,8 +18,6 @@ class TowerForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'name_tower': forms.TextInput(attrs={'class': 'form-control'}),
-            'location': forms.TextInput(attrs={'class': 'form-control'}),
-            'height': forms.NumberInput(attrs={'class': 'form-control'}),
         }
 
 class UsersForm(forms.ModelForm):

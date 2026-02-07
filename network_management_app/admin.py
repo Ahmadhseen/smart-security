@@ -12,9 +12,7 @@ class AntennaAdmin(admin.ModelAdmin):
 admin.site.register(Antenna, AntennaAdmin)
 
 class TowerAdmin(admin.ModelAdmin):
-    list_display = ('name_tower', 'location', 'height')
-    search_fields = ('name_tower', 'location')
-    list_filter = ('height',)
+    list_display = ['name_tower']
 
 admin.site.register(Tower, TowerAdmin)
 

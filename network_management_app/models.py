@@ -28,9 +28,7 @@ class Antenna(models.Model):
 
 class Tower(models.Model):
     name_tower = models.CharField(max_length=100)
-    location = models.CharField(max_length=200)
-    height = models.FloatField()
-
+    
     def __str__(self):
         return f"{self.name_tower} - {self.id}"
     

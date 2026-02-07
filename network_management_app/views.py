@@ -7,9 +7,6 @@ from django.http import JsonResponse
 from .ssh_services import get_antenna_live_data 
 # Create your views here.
 
-def home(request):
-    return render(request, 'network_management_app/home.html')
-
 def dashboard(request):
     towers = Tower.objects.all()
     tower_id = request.GET.get('tower_filter')
@@ -120,24 +117,24 @@ def sign_in(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Sign in successful.')
-            return redirect('log_in')
+            return redirect('home')
     else:
         form = UsersForm()    
     return render(request, 'network_management_app/sign_in.html', {'form': form})
 
-def log_in(request):
+def home(request):
     if request.POST:
         username = request.POST.get('username')
         password = request.POST.get('password')
         try:
             user = Users.objects.get(username=username, password=password)
             messages.success(request, f'Welcome back, {user.username}!')
-            return redirect('dashboard')
+            return redirect('view_towers')
         except Users.DoesNotExist:
             messages.error(request, 'Invalid username or password. Please try again.')
     
     form = LogInForm()
-    return render(request, 'network_management_app/log_in.html', {'form': form})
+    return render(request, 'network_management_app/home.html', {'form': form})
 
 
 def antenna_status_api(request, pk):
