@@ -14,7 +14,6 @@ from pathlib import Path
 from django.contrib.messages import constants as messages
 from django.utils.translation import gettext_lazy as _
 import os
-import django_bootstrap5
 
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',   # تحويل 'error' إلى 'danger' ليناسب Bootstrap
