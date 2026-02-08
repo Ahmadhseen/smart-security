@@ -17,20 +17,6 @@
                             {{ form.name_tower }}
                             <div class="form-text">{% trans 'Give the tower a unique identifier.' %}</div>
                         </div>
-                        
-                        <div class="row g-3 mb-4">
-                            <div class="col-md-8">
-                                <label for="location" class="form-label fw-bold text-dark">{% trans 'Location' %}</label>
-                                {{ form.location }}
-                            </div>
-                            <div class="col-md-4">
-                                <label for="height" class="form-label fw-bold text-dark">{% trans 'Height (m)' %}</label>
-                                <div class="input-group">
-                                    {{ form.height }}
-                                    <span class="input-group-text">m</span>
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="d-grid gap-2">
                             <button type="submit" value="Add Tower" class="btn btn-success py-2 fw-bold shadow-sm">

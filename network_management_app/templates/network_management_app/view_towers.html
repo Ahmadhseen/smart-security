@@ -43,10 +43,10 @@
 
         <div class="action-buttons">
           <div class="btn-group">  
-            <a href="{% url 'edit_tower' tower.id %}" class="btn btn-outline-warning border-0" title="Edit">
+            <a href="{% url 'edit_tower' tower.id %}" class="btn btn-outline-warning border-1" title="Edit">
               <i class="fas fa-edit"></i>
             </a>
-            <a href="{% url 'delete_tower' tower.id %}" class="btn btn-outline-danger border-0" title="Delete" onclick="return confirm('{% trans "Are you sure you want to delete this tower?" %}');">
+            <a href="{% url 'delete_tower' tower.id %}" class="btn btn-outline-danger border-1" title="Delete" onclick="return confirm('{% trans "Are you sure you want to delete this tower?" %}');">
               <i class="fas fa-trash"></i>
             </a>
           </div>

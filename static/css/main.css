@@ -51,6 +51,28 @@ body {
             background-color: rgba(13, 110, 253, 0.05);
         }
 
+                @font-face {
+            font-family: 'Ethnocentric';
+            src: url("{% static 'fonts/Ethnocentric-Regular.otf' %}"); /* تأكد من المسار الصحيح */
+        }
+
+        .brand-container {
+            line-height: 1.1;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* ليكون النص تحت بعضه */
+        }
+
+        .brand-sub-text {
+            font-family: 'Roboto Condensed', 'Arial', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            color: #d9534f; /* اللون الأحمر للنص السفلي */
+            margin-top: 2px;
+            text-transform: uppercase;
+        }
+
         /* Main Content wrapper to push footer down */
         main {
             flex: 1;
@@ -63,14 +85,48 @@ body {
             border-top: 1px solid #e9ecef;
         }
 
+/* home.html*/        
 
-/* تحسين شكل الشبكة والبطاقات */
+.login-card {
+        border: none;
+        border-radius: 20px;
+        transition: transform 0.3s ease;
+    }
+    .login-card:hover {
+        transform: translateY(-5px);
+    }
+    .form-control-custom {
+        border-radius: 10px;
+        padding: 12px;
+        border: 1px solid #dee2e6;
+    }
+    .btn-custom-primary {
+        background: linear-gradient(45deg, #0d6efd, #0dcaf0);
+        border: none;
+        border-radius: 10px;
+        color: white;
+        transition: all 0.3s;
+    }
+    .btn-custom-primary:hover {
+        opacity: 0.9;
+        box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
+    }
+    .brand-logo {
+        max-width: 120px;
+        filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+    }
+    .hero-section {
+        margin-bottom: 2rem;
+    }
+
+
+/* view_towers.html*/
     .towers-grid {
         padding: 20px 0;
     }
 
     .custom-card {
-        background: #ffffff;
+        background: var(--primary-blue);
         border-radius: 15px;
         border: 1px solid #eef2f7;
         padding: 1.5rem;
@@ -147,3 +203,6 @@ body {
         padding: 5rem 0;
         color: #adb5bd;
     }
+
+
+   

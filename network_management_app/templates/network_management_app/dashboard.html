@@ -62,19 +62,18 @@
                     <td class="ps-4">
                         <div class="fw-bold text-primary">{{ antenna.name_device }}</div>
                         <div class="small text-muted">{{ antenna.model_device }}</div>
+                        <div class="small">{{ antenna.operation_mode }}</div>
                     </td>
 
                     <td>
                         <div class="small"><i class="fas fa-network-wired me-1"></i> {{ antenna.ip_address }}</div>
                         <div class="badge bg-info-subtle text-info small">{{ antenna.tower.name_tower }}</div>
-                        <div class="badge bg-info-subtle text-info small">{{ antenna.distance }}</div>
                     </td>
 
                     <td>
                         <div class="small"><b>ESSID:</b> {{ antenna.essid }}</div>
                         <div class="small"><b>Freq:</b> {{ antenna.frequency }}</div>
                         <div class="small"><b>Channel Width:</b> {{ antenna.channel_width }}</div>
-                        <div class="small"><b>Mode:</b> {{ antenna.operation_mode }}</div>
                     </td>
 
                     <td>
