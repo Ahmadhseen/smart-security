@@ -14,4 +14,5 @@ urlpatterns = [
     path('edit_tower/<int:pk>/', views.edit_tower, name='edit_tower'),
     path('sign_in/', views.sign_in, name='sign_in'),
     path('api/antenna-status/<int:pk>/', views.antenna_status_api, name='antenna_status_api'),
+    path('api/update-all/', views.update_antennas_api, name='update_api'),
 ]

@@ -10,7 +10,7 @@ class Antenna(models.Model):
     noise = models.CharField(max_length=50)
     ccq = models.CharField(max_length=50)
     lan_speed = models.CharField(max_length=50)
-    number_of_clients = models.IntegerField()
+    number_of_clients = models.IntegerField(default=0)
     uptime_hours = models.CharField(max_length=50)
     essid = models.CharField(max_length=100)
     frequency = models.CharField(max_length=50)

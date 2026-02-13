@@ -144,3 +144,28 @@ def antenna_status_api(request, pk):
         return JsonResponse(data)
     except Antenna.DoesNotExist:
         return JsonResponse({"status": "Error", "error": "Device not found"}, status=404)
+    
+
+    
+from django.views.decorators.csrf import csrf_exempt
+import json
+
+@csrf_exempt  # للسماح بجهازك المحلي بإرسال بيانات بدون Token التعقيد
+def update_antennas_api(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            # نفترض أن البيانات تأتي كقائمة من الصحون
+            for item in data:
+                # البحث عن الصحن بواسطة IP (لأنه فريد في شبكتك)
+                if antenna := Antenna.objects.filter(ip_address=item['ip_address']).first():
+                    antenna.signal = item.get('signal', antenna.signal)
+                    antenna.noise = item.get('noise', antenna.noise)
+                    antenna.ccq = item.get('ccq', antenna.ccq)
+                    antenna.number_of_clients = item.get('number_of_clients', 0)
+                    antenna.status = 'Online'
+                    antenna.save()
+            return JsonResponse({"status": "success", "message": "Data updated!"})
+        except Exception as e:
+            return JsonResponse({"status": "error", "message": str(e)}, status=400)
+    return JsonResponse({"status": "failed"}, status=405)
