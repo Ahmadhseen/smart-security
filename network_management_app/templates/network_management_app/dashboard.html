@@ -128,7 +128,7 @@ function updateAntennaRow(id) {
     fetch(`/api/antenna-status/${id}/`)
         .then(response => response.json())
         .then(data => {
-            if (data.status !== "Error") {
+            if (data.status !== "Offline") {
                 // تحديث القيم الحية في السطر
                 row.querySelector('.live-signal').innerText = data.signal;
                 row.querySelector('.live-ccq').innerText = data.ccq;
@@ -136,11 +136,13 @@ function updateAntennaRow(id) {
                 
                 // تحديث الشارة (Badge)
                 const statusBadge = row.querySelector('.live-status');
-                statusBadge.innerText = "Online";
+                statusBadge.innerText = data.status;
                 statusBadge.className = "live-status badge bg-success";
             } else {
                 row.querySelector('.live-status').className = "live-status badge bg-danger";
-                row.querySelector('.live-status').innerText = "Offline";
+                row.querySelector('.live-status').innerText = data.status;
+                row.querySelector('.live-signal').innerText = data.signal;
+                row.querySelector('.live-ccq').innerText = data.ccq;
             }
             btnIcon.classList.remove('fa-spin');
         })

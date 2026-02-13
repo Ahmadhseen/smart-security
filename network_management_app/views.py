@@ -137,10 +137,34 @@ def home(request):
     return render(request, 'network_management_app/home.html', {'form': form})
 
 
+def update_antenna_record(antenna, data):
+    """
+    هذه الدالة هي التي استخرجتها Sourcery (مع إعادة تسمية منطقية)
+    لتحديث بيانات الهوائي من القاموس المستلم
+    """
+    antenna.signal = data.get('signal')
+    antenna.ccq = data.get('ccq')
+    antenna.number_of_clients = data.get('number_of_clients', 0)
+    antenna.status = 'Online'
+    antenna.uptime_hours = data.get('uptime_hours')
+    antenna.lan_speed = data.get('lan_speed')
+    # لاحظ أننا لم نضع antenna.save() هنا لأنها رُفعت للخارج
+
 def antenna_status_api(request, pk):
     try:
         antenna = Antenna.objects.get(pk=pk)
         data = get_antenna_live_data(antenna.ip_address, 'ubnt', antenna.password)
-        return JsonResponse(data)
+
+        if data.get('status') == 'Online':
+            update_antenna_record(antenna, data)
+        else:
+            antenna.status = 'Offline'
+            antenna.signal = 'N/A dbm'
+            antenna.ccq = 'N/A%'
+        
+        # Hoisting: تم رفع الحفظ خارج الشرط لأنه مطلوب في الحالتين
+        antenna.save() 
+        return JsonResponse({"status": antenna.status, "signal": antenna.signal, "ccq": antenna.ccq, "number_of_clients": antenna.number_of_clients})
+    
     except Antenna.DoesNotExist:
         return JsonResponse({"status": "Error", "error": "Device not found"}, status=404)
