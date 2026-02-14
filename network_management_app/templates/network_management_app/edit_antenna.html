@@ -14,32 +14,26 @@
                         {% csrf_token %}
                         
                         <div class="row g-3">
-                            <div class="col-md-6 mb-3">
-                                <label for="deviceName" class="form-label fw-bold small text-muted">{% trans 'Device Name' %}</label>
-                                {{form.name_device}}
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="modelDevice" class="form-label fw-bold small text-muted">{% trans 'Model Device' %}</label>
-                                {{form.model_device}}
-                            </div>
                             
                             <div class="col-md-6 mb-3">
                                 <label for="ipAddress" class="form-label fw-bold small text-muted">{% trans 'IP Address' %}</label>
                                 {{form.ip_address}}
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="frequency" class="form-label fw-bold small text-muted">{% trans 'Frequency' %}</label>
-                                {{form.frequency}}
-                            </div>
-
-                            <div class="col-md-6 mb-3">
-                                <label for="encreyptionType" class="form-label fw-bold small text-muted">{% trans 'Encryption Type' %}</label>
-                                {{form.encreption_type}}
-                            </div>
-                            <div class="col-md-6 mb-3">
                                 <label for="password" class="form-label fw-bold small text-muted">{% trans 'Password' %}</label>
                                 {{form.password}}
                             </div>
+                            
+                            <div class="mb-4">
+                            <label for="{{ form.tower.id_for_label }}" class="form-label fw-bold small text-uppercase text-muted">{% trans 'Assigned Tower' %}</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0"><i class="fas fa-broadcast-tower text-secondary"></i></span>
+                                {{ form.tower }}
+                            </div>
+                            {% if form.tower.errors %}
+                                <div class="text-danger small mt-1">{{ form.tower.errors }}</div>
+                            {% endif %}
+                        </div>
                         </div>
 
                         <div class="d-flex justify-content-end gap-2 border-top pt-4 mt-2">
