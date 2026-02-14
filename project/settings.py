@@ -34,7 +34,7 @@ SECRET_KEY = 'django-insecure-+2@zgz6ja2%pu3b2kmkj+4_d9-v0%&z&xuerxu797+bse%hwyl
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['smart.security', '192.168.1.3', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['smartsecurity.pythonanywhere.com']
 
 
 # Application definition
@@ -52,11 +52,6 @@ INSTALLED_APPS = [
     "django_bootstrap5",
 ]
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -148,3 +143,9 @@ LOCALE_PATHS = [
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# تأكد أيضاً من تعريف مجلدات الاستاتيك الإضافية إن وجدت
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]

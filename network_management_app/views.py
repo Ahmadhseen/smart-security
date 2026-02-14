@@ -46,6 +46,8 @@ def home(request):
     
     form = LogInForm()
     return render(request, 'network_management_app/home.html', {'form': form})
+
+
     
 
 MY_SECRET_KEY = "smartsecurity1234"

@@ -11,9 +11,6 @@
             </h2>
             <p class="text-muted small">{% trans 'Overview of all your network locations' %}</p>
         </div>
-        <a href="{% url 'add_tower' %}" class="btn btn-primary rounded-pill px-4 shadow-sm">
-            <i class="fas fa-plus me-1"></i>{% trans 'Add New Tower' %}
-        </a>
     </div>    
 </div> 
 
@@ -42,14 +39,6 @@
         </div>
 
         <div class="action-buttons">
-          <div class="btn-group">  
-            <a href="{% url 'edit_tower' tower.id %}" class="btn btn-outline-warning border-1" title="Edit">
-              <i class="fas fa-edit"></i>
-            </a>
-            <a href="{% url 'delete_tower' tower.id %}" class="btn btn-outline-danger border-1" title="Delete" onclick="return confirm('{% trans "Are you sure you want to delete this tower?" %}');">
-              <i class="fas fa-trash"></i>
-            </a>
-          </div>
 
           <a href="{% url 'dashboard' %}?tower_filter={{ tower.id }}" class="btn-view" title="Open Dashboard">
               <i class="fas fa-external-link-alt"></i>
