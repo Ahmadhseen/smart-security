@@ -1,4 +1,8 @@
 from django.db import models
+import contextlib
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
+import requests
 
 # Create your models here.
 
@@ -41,4 +45,38 @@ class Users(models.Model):
 
    def __str__(self):
         return self.first_name    
+
+
+API_URL = "https://smartsecurity.pythonanywhere.com/api/sync-antenna/"
+HEADERS = {"X-Api-Key": "smartsecurity"}
+
+@receiver(post_save, sender=Antenna)
+def sync_on_save(sender, instance, **kwargs):
+    payload = {
+        "action": "save",
+        "data": {
+            "ip_address": instance.ip_address,
+            "name_device": instance.name_device,
+            "model_device": instance.model_device,
+            "operation_mode": instance.operation_mode,
+            "signal": instance.signal,
+            "noise": instance.noise,
+            "ccq": instance.ccq,
+            "number_of_clients": instance.number_of_clients,
+            "status": instance.status,
+            "essid": instance.essid,
+            "password": instance.password,
+        }
+    }
+    with contextlib.suppress(Exception):
+        requests.post(API_URL, json=payload, headers=HEADERS, timeout=5)
+
+@receiver(post_delete, sender=Antenna)
+def sync_on_delete(sender, instance, **kwargs):
+    payload = {
+        "action": "delete",
+        "data": {"ip_address": instance.ip_address}
+    }
+    with contextlib.suppress(Exception):
+        requests.post(API_URL, json=payload, headers=HEADERS, timeout=5)
     
