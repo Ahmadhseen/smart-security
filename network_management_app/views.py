@@ -17,7 +17,7 @@ def dashboard(request):
     return render(request, 'network_management_app/dashboard.html', {'antennas': antennas, 'towers': towers})
 
 
-def add(request):
+def add_antenna(request):
     if request.method == 'POST':
         form = AntennaForm(request.POST)
         if form.is_valid():
@@ -56,9 +56,9 @@ def add(request):
             return redirect('dashboard')
     else:
         form = AntennaForm()
-    return render(request, 'network_management_app/add.html', {'form': form})
+    return render(request, 'network_management_app/add_antenna.html', {'form': form})
 
-def edit(request, pk):
+def edit_antenna(request, pk):
     antenna = Antenna.objects.get(pk=pk)
     if request.POST:
         form = AntennaForm(request.POST, instance=antenna)
@@ -69,9 +69,9 @@ def edit(request, pk):
     else:
         form = AntennaForm(instance=antenna)
 
-    return render(request, 'network_management_app/edit.html', {'antenna':antenna, 'form': form})
+    return render(request, 'network_management_app/edit_antenna.html', {'antenna':antenna, 'form': form})
 
-def delete(request, pk):
+def delete_antenna(request, pk):
     antenna = Antenna.objects.get(pk=pk)
     antenna.delete()
     messages.success(request, f'Antenna {antenna.name_device} deleted successfully.')

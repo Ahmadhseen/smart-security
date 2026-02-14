@@ -10,7 +10,7 @@
             <h1 class="h3 text-dark fw-bold mb-0">{% trans 'Dashboard' %}</h1>
             <p class="text-muted mb-0">{% trans 'Overview of all registered antennas' %} </p>
         </div>
-        <a href="{% url 'add' %}" class="btn btn-primary shadow-sm">
+        <a href="{% url 'add_antenna' %}" class="btn btn-primary shadow-sm">
             <i class="fas fa-plus me-2"></i>{% trans 'New Antenna' %}
         </a>
     </div>
@@ -105,8 +105,8 @@
                             <button class="btn btn-sm btn-outline-secondary refresh-btn" onclick="updateAntennaRow({{ antenna.id }})">
                                 <i class="fas fa-sync-alt"></i>
                             </button>
-                            <a href="{% url 'edit' antenna.id %}" class="btn btn-sm btn-outline-primary"><i class="fas fa-pencil-alt"></i></a>
-                            <a href="{% url 'delete' antenna.id %}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure?')"><i class="fas fa-trash"></i></a>
+                            <a href="{% url 'edit_antenna' antenna.id %}" class="btn btn-sm btn-outline-primary"><i class="fas fa-pencil-alt"></i></a>
+                            <a href="{% url 'delete_antenna' antenna.id %}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure?')"><i class="fas fa-trash"></i></a>
                         </div>
                     </td>
                 </tr>
