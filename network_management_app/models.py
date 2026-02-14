@@ -47,8 +47,8 @@ class Users(models.Model):
         return self.first_name    
 
 
-API_URL = "https://smartsecurity.pythonanywhere.com/api/sync-antenna/"
-HEADERS = {"X-Api-Key": "smartsecurity"}
+API_URL = "https://smartsecurity.pythonanywhere.com/api/update-all/"
+HEADERS = {"X-Api-Key": "smartsecurity1234"}
 
 @receiver(post_save, sender=Antenna)
 def sync_on_save(sender, instance, **kwargs):
@@ -66,6 +66,7 @@ def sync_on_save(sender, instance, **kwargs):
             "status": instance.status,
             "essid": instance.essid,
             "password": instance.password,
+            "tower_name": instance.tower.name_tower if instance.tower else None,
         }
     }
     with contextlib.suppress(Exception):
