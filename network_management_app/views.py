@@ -65,6 +65,12 @@ def sync_antenna_api(request):
             data = payload.get('data')
 
             if action == 'save':
+                tower_name = data.get('tower_name')
+                tower_obj = None
+                if tower_name:
+                    # ابحث عن البرج بالاسم، وإذا لم تجده أنشئه
+                    tower_obj, _ = Tower.objects.get_or_create(name_tower=tower_name)
+
                 # تحديث إذا كان موجوداً، أو إنشاء واحد جديد
                 antenna, created = Antenna.objects.update_or_create(
                     ip_address=data['ip_address'],
@@ -79,6 +85,7 @@ def sync_antenna_api(request):
                         'status': data.get('status'),
                         'essid': data.get('essid'),
                         'password': data.get('password'),
+                        'tower': tower_obj,
                     }
                 )
                 return JsonResponse({"status": "success", "action": "saved"})
