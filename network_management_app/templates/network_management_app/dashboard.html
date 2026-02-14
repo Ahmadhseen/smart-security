@@ -10,9 +10,6 @@
             <h1 class="h3 text-dark fw-bold mb-0">{% trans 'Dashboard' %}</h1>
             <p class="text-muted mb-0">{% trans 'Overview of all registered antennas' %} </p>
         </div>
-        <a href="{% url 'add' %}" class="btn btn-primary shadow-sm">
-            <i class="fas fa-plus me-2"></i>{% trans 'New Antenna' %}
-        </a>
     </div>
 
     <!-- Filter Card -->
@@ -53,7 +50,6 @@
                     <th>{% trans 'Network' %}</th>
                     <th>{% trans 'Security' %}</th>
                     <th>{% trans 'Status' %}</th>
-                    <th class="text-end pe-4">{% trans 'Actions' %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -99,16 +95,6 @@
                             {{ antenna.status }}
                         </span>
                     </td>
-
-                    <td class="text-end pe-4">
-                        <div class="btn-group">
-                            <button class="btn btn-sm btn-outline-secondary refresh-btn" onclick="updateAntennaRow({{ antenna.id }})">
-                                <i class="fas fa-sync-alt"></i>
-                            </button>
-                            <a href="{% url 'edit' antenna.id %}" class="btn btn-sm btn-outline-primary"><i class="fas fa-pencil-alt"></i></a>
-                            <a href="{% url 'delete' antenna.id %}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure?')"><i class="fas fa-trash"></i></a>
-                        </div>
-                    </td>
                 </tr>
                 {% empty %}
                 <tr><td colspan="8" class="text-center py-4">{% trans 'No data available' %}</td></tr>
@@ -119,43 +105,5 @@
     </div>
 </div>
 
-<script>
-function updateAntennaRow(id) {
-    const row = document.querySelector(`.antenna-row[data-id="${id}"]`);
-    const btnIcon = row.querySelector('.refresh-btn i');
-    btnIcon.classList.add('fa-spin'); // بدء تدوير أيقونة التحديث
 
-    fetch(`/api/antenna-status/${id}/`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.status !== "Error") {
-                // تحديث القيم الحية في السطر
-                row.querySelector('.live-signal').innerText = data.signal;
-                row.querySelector('.live-ccq').innerText = data.ccq;
-                row.querySelector('.live-clients').innerText = data.number_of_clients;
-                
-                // تحديث الشارة (Badge)
-                const statusBadge = row.querySelector('.live-status');
-                statusBadge.innerText = "Online";
-                statusBadge.className = "live-status badge bg-success";
-            } else {
-                row.querySelector('.live-status').className = "live-status badge bg-danger";
-                row.querySelector('.live-status').innerText = "Offline";
-            }
-            btnIcon.classList.remove('fa-spin');
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            btnIcon.classList.remove('fa-spin');
-        });
-}
-
-// تحديث كافة الصحون تلقائياً كل دقيقة
-setInterval(() => {
-    document.querySelectorAll('.antenna-row').forEach(row => {
-        const id = row.getAttribute('data-id');
-        updateAntennaRow(id);
-    });
-}, 60000);
-</script>
 {% endblock content %}

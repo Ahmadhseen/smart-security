@@ -5,6 +5,8 @@ from .models import Antenna, Tower, Users
 from django.contrib import messages
 from django.http import JsonResponse
 from .ssh_services import get_antenna_live_data 
+from django.views.decorators.csrf import csrf_exempt
+import json
 # Create your views here.
 
 def dashboard(request):
@@ -15,101 +17,11 @@ def dashboard(request):
     else: 
         antennas = Antenna.objects.all()
     return render(request, 'network_management_app/dashboard.html', {'antennas': antennas, 'towers': towers})
-
-
-def add(request):
-    if request.method == 'POST':
-        form = AntennaForm(request.POST)
-        if form.is_valid():
-            # حفظ مبدئي للحصول على الكائن بدون تخزينه في قاعدة البيانات فوراً
-            antenna = form.save(commit=False)
-            
-            # جلب البيانات الحية باستخدام IP وكلمة السر المدخلين
-            live_data = get_antenna_live_data(antenna.ip_address, 'ubnt', antenna.password)
-            
-            if live_data.get('status') == 'Online':
-                # تعبئة الحقول تلقائياً من الصحن
-                antenna.name_device = live_data.get('device_name')
-                antenna.model_device = live_data.get('platform')
-                antenna.operation_mode = live_data.get('operation_mode')
-                antenna.signal = live_data.get('signal')
-                antenna.noise = live_data.get('noise')
-                antenna.ccq = live_data.get('ccq')
-                antenna.lan_speed = live_data.get('lan_speed')
-                antenna.number_of_clients = live_data.get('number_of_clients', 0)
-                antenna.uptime_hours = live_data.get('uptime_hours')
-                antenna.essid = live_data.get('essid')
-                antenna.frequency = live_data.get('frequency')
-                antenna.channel_width = live_data.get('channel_width')
-                antenna.distance = live_data.get('distance')
-                antenna.encryption = live_data.get('encryption')
-                antenna.psk = live_data.get('psk')
-                antenna.status = 'Online'
-                antenna.save()
-                messages.success(request, 'Antenna added and data fetched successfully.')
-            else:
-                # إذا فشل الاتصال، نحفظه كـ Offline أو نرفض الإضافة حسب رغبتك
-                antenna.status = 'Offline'
-                antenna.save()
-                messages.warning(request, 'Failed to fetch live data from the antenna.')
-            
-            return redirect('dashboard')
-    else:
-        form = AntennaForm()
-    return render(request, 'network_management_app/add.html', {'form': form})
-
-def edit(request, pk):
-    antenna = Antenna.objects.get(pk=pk)
-    if request.POST:
-        form = AntennaForm(request.POST, instance=antenna)
-        if form.is_valid():
-            form.save()
-            messages.success(request, f'Antenna {antenna.name_device} updated successfully.')
-        return redirect('dashboard')
-    else:
-        form = AntennaForm(instance=antenna)
-
-    return render(request, 'network_management_app/edit.html', {'antenna':antenna, 'form': form})
-
-def delete(request, pk):
-    antenna = Antenna.objects.get(pk=pk)
-    antenna.delete()
-    messages.success(request, f'Antenna {antenna.name_device} deleted successfully.')
-    return redirect('dashboard')
-
-def add_tower(request):
-    if request.POST:
-        form = TowerForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Tower added successfully.')
-            return redirect('view_towers')
-    else:
-        form = TowerForm()
-    return render(request, 'network_management_app/add_tower.html', {'form': form})
        
 
 def view_towers(request):
     towers = Tower.objects.annotate(num_antennas=Count('antennas'))
     return render(request, 'network_management_app/view_towers.html', {'towers': towers})
-
-def delete_tower(request, pk):
-    tower = Tower.objects.get(pk=pk)
-    tower.delete()
-    messages.success(request, f'Tower {tower.name} deleted successfully.')
-    return redirect('view_towers')
-
-def edit_tower(request, pk):
-    tower = Tower.objects.get(pk=pk)
-    if request.POST:
-        form = TowerForm(request.POST, instance=tower)
-        if form.is_valid():
-            form.save()
-            messages.success(request, f'Tower {tower.name} updated successfully.')
-            return redirect('view_towers')
-    else:
-        form = TowerForm(instance=tower)
-    return render(request, 'network_management_app/edit_tower.html', {'form': form, 'tower': tower})
 
 def sign_in(request):
     if request.POST:
@@ -146,26 +58,38 @@ def antenna_status_api(request, pk):
         return JsonResponse({"status": "Error", "error": "Device not found"}, status=404)
     
 
-    
-from django.views.decorators.csrf import csrf_exempt
-import json
-
-@csrf_exempt  # للسماح بجهازك المحلي بإرسال بيانات بدون Token التعقيد
-def update_antennas_api(request):
+@csrf_exempt
+def sync_antenna_api(request):
     if request.method == 'POST':
         try:
-            data = json.loads(request.body)
-            # نفترض أن البيانات تأتي كقائمة من الصحون
-            for item in data:
-                # البحث عن الصحن بواسطة IP (لأنه فريد في شبكتك)
-                if antenna := Antenna.objects.filter(ip_address=item['ip_address']).first():
-                    antenna.signal = item.get('signal', antenna.signal)
-                    antenna.noise = item.get('noise', antenna.noise)
-                    antenna.ccq = item.get('ccq', antenna.ccq)
-                    antenna.number_of_clients = item.get('number_of_clients', 0)
-                    antenna.status = 'Online'
-                    antenna.save()
-            return JsonResponse({"status": "success", "message": "Data updated!"})
+            payload = json.loads(request.body)
+            action = payload.get('action') # 'save' أو 'delete'
+            data = payload.get('data')
+
+            if action == 'save':
+                # تحديث إذا كان موجوداً، أو إنشاء واحد جديد
+                antenna, created = Antenna.objects.update_or_create(
+                    ip_address=data['ip_address'],
+                    defaults={
+                        'name_device': data.get('name_device'),
+                        'model_device': data.get('model_device'),
+                        'operation_mode': data.get('operation_mode'),
+                        'signal': data.get('signal'),
+                        'noise': data.get('noise'),
+                        'ccq': data.get('ccq'),
+                        'number_of_clients': data.get('number_of_clients', 0),
+                        'status': data.get('status'),
+                        'essid': data.get('essid'),
+                        'password': data.get('password'),
+                    }
+                )
+                return JsonResponse({"status": "success", "action": "saved"})
+
+            elif action == 'delete':
+                Antenna.objects.filter(ip_address=data['ip_address']).delete()
+                return JsonResponse({"status": "success", "action": "deleted"})
+
         except Exception as e:
             return JsonResponse({"status": "error", "message": str(e)}, status=400)
+            
     return JsonResponse({"status": "failed"}, status=405)
