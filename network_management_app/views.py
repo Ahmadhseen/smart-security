@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
 from django.db.models import Count
-from .forms import AntennaForm, TowerForm, UsersForm, LogInForm
+from .forms import UsersForm, LogInForm
 from .models import Antenna, Tower, Users
 from django.contrib import messages
-from django.http import JsonResponse
-from .ssh_services import get_antenna_live_data 
+from django.http import JsonResponse 
 from django.views.decorators.csrf import csrf_exempt
 import json
 # Create your views here.
@@ -47,19 +46,16 @@ def home(request):
     
     form = LogInForm()
     return render(request, 'network_management_app/home.html', {'form': form})
-
-
-def antenna_status_api(request, pk):
-    try:
-        antenna = Antenna.objects.get(pk=pk)
-        data = get_antenna_live_data(antenna.ip_address, 'ubnt', antenna.password)
-        return JsonResponse(data)
-    except Antenna.DoesNotExist:
-        return JsonResponse({"status": "Error", "error": "Device not found"}, status=404)
     
+
+MY_SECRET_KEY = "smartsecurity1234"
 
 @csrf_exempt
 def sync_antenna_api(request):
+    auth_key = request.headers.get('X-Api-Key')
+    if auth_key != MY_SECRET_KEY:
+        return JsonResponse({"status": "unauthorized"}, status=401)
+
     if request.method == 'POST':
         try:
             payload = json.loads(request.body)

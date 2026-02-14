@@ -1,24 +1,5 @@
 from django import forms
-from .models import Antenna, Tower, Users
-
-class AntennaForm(forms.ModelForm):
-    class Meta:
-        model = Antenna
-        fields = ['ip_address', 'password', 'tower'] 
-        widgets = {
-            'ip_address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '192.168.1.20'}),
-            'password': forms.PasswordInput(attrs={'class': 'form-control'}),
-            'tower': forms.Select(attrs={'class': 'form-control'}),
-        }
-        
-
-class TowerForm(forms.ModelForm):
-    class Meta:
-        model = Tower
-        fields = '__all__'
-        widgets = {
-            'name_tower': forms.TextInput(attrs={'class': 'form-control'}),
-        }
+from .models import Users
 
 class UsersForm(forms.ModelForm):
         class Meta:
